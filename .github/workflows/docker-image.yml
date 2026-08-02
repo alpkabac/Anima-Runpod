@@ -30,12 +30,23 @@ jobs:
       - name: Set lowercase image owner
         run: echo "IMAGE_OWNER=${GITHUB_REPOSITORY_OWNER,,}" >> $GITHUB_ENV
 
+      - name: Require CivitAI API token
+        env:
+          CIVITAI_API_TOKEN: ${{ secrets.CIVITAI_API_TOKEN }}
+        run: |
+          if [ -z "$CIVITAI_API_TOKEN" ]; then
+            echo "::error::Add repository secret CIVITAI_API_TOKEN (Civitai account API key). Baked LoRA downloads return 401 without it."
+            exit 1
+          fi
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
           context: .
           file: ./Dockerfile
           push: true
+          secrets: |
+            civitai_api_token=${{ secrets.CIVITAI_API_TOKEN }}
           tags: |
             ghcr.io/${{ env.IMAGE_OWNER }}/${{ env.IMAGE_NAME }}:latest
             ghcr.io/${{ env.IMAGE_OWNER }}/${{ env.IMAGE_NAME }}:${{ github.sha }}

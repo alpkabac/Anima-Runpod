@@ -1,0 +1,42 @@
+[
+  {
+    "filename": "uncle_ai.safetensors",
+    "label": "Uncle AI illustration/nuren_nuren Style",
+    "url": "https://civitai.red/api/download/models/3179881?fileId=3060425"
+  },
+  {
+    "filename": "bunnyslop.safetensors",
+    "label": "BunnySlop AI Style [IL/Anima]",
+    "url": "https://civitai.red/api/download/models/3174127?fileId=3054626"
+  },
+  {
+    "filename": "cham2026.safetensors",
+    "label": "cham2026 lora",
+    "url": "https://civitai.red/api/download/models/3020599?fileId=2901201"
+  },
+  {
+    "filename": "cham2023.safetensors",
+    "label": "cham2023 lora",
+    "url": "https://civitai.red/api/download/models/3177539?fileId=3058070"
+  },
+  {
+    "filename": "melonstyle.safetensors",
+    "label": "melonstyle",
+    "url": "https://civitai.red/api/download/models/3154296?fileId=3035084"
+  },
+  {
+    "filename": "theobrobine.safetensors",
+    "label": "theobrobine",
+    "url": "https://civitai.red/api/download/models/2858463?fileId=2744075"
+  },
+  {
+    "filename": "nijisweetspot.safetensors",
+    "label": "nijisweetspot",
+    "url": "https://civitai.red/api/download/models/3040615?fileId=2919354"
+  },
+  {
+    "filename": "shexyo.safetensors",
+    "label": "Shexyo",
+    "url": "https://civitai.red/api/download/models/3103366?fileId=2983198"
+  }
+]
