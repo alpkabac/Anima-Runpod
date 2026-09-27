@@ -15,20 +15,11 @@ Everything is baked in at build time, so cold starts never download models:
 | `siglip2/siglip2-base-patch16-512/` | `google/siglip2-base-patch16-512` (SigLIP2 encoder used by the IP-Adapter) |
 | `loras/*` | [`data/anima_baked_loras.json`](data/anima_baked_loras.json) |
 
-Custom nodes:
-
-- `ComfyUI-Megumin-NanoGPT` (this repo), for SillyTavern + Megumin-Suite.
-- [`ComfyUI-Anima_IP-Adapter`](https://github.com/LuciferTC9527/ComfyUI-Anima_IP-Adapter),
-  pinned by commit in the `Dockerfile` (`AnimaIPAdapterLoader`, `AnimaIPAdapterApply`).
+Custom node: [`ComfyUI-Anima_IP-Adapter`](https://github.com/LuciferTC9527/ComfyUI-Anima_IP-Adapter),
+pinned by commit in the `Dockerfile` (`AnimaIPAdapterLoader`, `AnimaIPAdapterApply`).
 
 The image sets `HF_HUB_OFFLINE=1` and `TRANSFORMERS_OFFLINE=1`. A missing file
 fails the job instead of silently downloading during a cold start.
-
-> **Megumin-Suite:** `anima-turbo-v1.0` and `anima-base-v1.0` are no longer in
-> the image. Megumin-Suite `vn-stage` hardcodes them for RunPod
-> (`RUNPOD_ANIMA_MODEL` / `RUNPOD_ANIMA_BASE_MODEL` in `visual/generation.js`).
-> Point those at `anima-turbo-v1.1.safetensors`, or RunPod jobs from Megumin
-> fail with `value not in list`.
 
 ## Building
 

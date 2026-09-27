@@ -11,9 +11,6 @@ FROM runpod/worker-comfyui:5.10.0-base
 # upgrade: it keeps the base image's pinned version when it already qualifies.
 RUN pip install --no-cache-dir "comfy-cli>=1.7.3"
 
-# Megumin's workflow calls this repository-local node to turn the supplied
-# roleplay scene into the final positive prompt.
-COPY comfyui_custom_nodes/ComfyUI-Megumin-NanoGPT /comfyui/custom_nodes/ComfyUI-Megumin-NanoGPT
 COPY data/anima_baked_loras.json /tmp/anima_baked_loras.json
 COPY runpod/download_baked_loras.py /tmp/download_baked_loras.py
 
@@ -28,9 +25,7 @@ RUN git clone "$ANIMA_IPADAPTER_REPO" /comfyui/custom_nodes/ComfyUI-Anima_IP-Ada
     && pip install --no-cache-dir -r /comfyui/custom_nodes/ComfyUI-Anima_IP-Adapter/requirements.txt
 
 # Anima Turbo requires its Qwen text encoder and VAE in addition to the
-# diffusion model.  Only turbo v1.1 is baked; v1.0 turbo/base were dropped to
-# shrink the image (Megumin-Suite vn-stage still names v1.0 and must be
-# switched to anima-turbo-v1.1.safetensors).
+# diffusion model.
 RUN comfy model download \
   --url https://huggingface.co/circlestone-labs/Anima/resolve/main/split_files/diffusion_models/anima-turbo-v1.1.safetensors \
   --relative-path models/diffusion_models \
