@@ -184,7 +184,10 @@
         "3",
         0
       ],
-      "prompt": "%prompt%",
+      "prompt": [
+        "82",
+        0
+      ],
       "negative_prompt": "%negative_prompt%",
       "vae": [
         "4",
@@ -203,7 +206,10 @@
         "3",
         0
       ],
-      "prompt": "<image1> shows the character. Keep the same character identity, face, hair, eye color, outfit, colors and art style. %prompt%",
+      "prompt": [
+        "83",
+        0
+      ],
       "negative_prompt": "%negative_prompt%",
       "vae": [
         "4",
@@ -226,7 +232,10 @@
         "3",
         0
       ],
-      "prompt": "Reference image 1 is <image1> and reference image 2 is <image2>. They show the character; keep the same identity, face, hair, eye color, outfit, colors and art style unless the instructions below say otherwise. %prompt%",
+      "prompt": [
+        "84",
+        0
+      ],
       "negative_prompt": "%negative_prompt%",
       "vae": [
         "4",
@@ -253,7 +262,10 @@
         "3",
         0
       ],
-      "prompt": "Reference image 1 is <image1>, reference image 2 is <image2> and reference image 3 is <image3>. They show the character; keep the same identity, face, hair, eye color, outfit, colors and art style unless the instructions below say otherwise. %prompt%",
+      "prompt": [
+        "85",
+        0
+      ],
       "negative_prompt": "%negative_prompt%",
       "vae": [
         "4",
@@ -284,7 +296,10 @@
         "3",
         0
       ],
-      "prompt": "Reference image 1 is <image1>, reference image 2 is <image2>, reference image 3 is <image3> and reference image 4 is <image4>. They show the character; keep the same identity, face, hair, eye color, outfit, colors and art style unless the instructions below say otherwise. %prompt%",
+      "prompt": [
+        "86",
+        0
+      ],
       "negative_prompt": "%negative_prompt%",
       "vae": [
         "4",
@@ -473,6 +488,105 @@
         0
       ],
       "filename_prefix": "Marinara_qwen_sprite"
+    }
+  },
+  "80": {
+    "class_type": "RegexReplace",
+    "_meta": {
+      "title": "Marinara's white background -> transparent background"
+    },
+    "inputs": {
+      "string": "%prompt%",
+      "regex_pattern": "\\b(?:(?:solid|plain) white(?: studio)? background|white studio background|white background)\\b",
+      "replace": "transparent background",
+      "case_insensitive": true,
+      "multiline": false,
+      "dotall": false,
+      "count": 0
+    }
+  },
+  "81": {
+    "class_type": "StringConcatenate",
+    "_meta": {
+      "title": "Prompt + RGBA closing phrase"
+    },
+    "inputs": {
+      "string_a": [
+        "80",
+        0
+      ],
+      "string_b": ". The image has alpha channel and the background is transparent.",
+      "delimiter": ""
+    }
+  },
+  "82": {
+    "class_type": "StringConcatenate",
+    "_meta": {
+      "title": "RGBA prompt with 0 reference(s)"
+    },
+    "inputs": {
+      "string_a": "This is an RGBA image with transparency. ",
+      "string_b": [
+        "81",
+        0
+      ],
+      "delimiter": ""
+    }
+  },
+  "83": {
+    "class_type": "StringConcatenate",
+    "_meta": {
+      "title": "RGBA prompt with 1 reference(s)"
+    },
+    "inputs": {
+      "string_a": "This is an RGBA image with transparency. <image1> shows the character. Keep the same character identity, face, hair, eye color, outfit, colors and art style. ",
+      "string_b": [
+        "81",
+        0
+      ],
+      "delimiter": ""
+    }
+  },
+  "84": {
+    "class_type": "StringConcatenate",
+    "_meta": {
+      "title": "RGBA prompt with 2 reference(s)"
+    },
+    "inputs": {
+      "string_a": "This is an RGBA image with transparency. Reference image 1 is <image1> and reference image 2 is <image2>. They show the character; keep the same identity, face, hair, eye color, outfit, colors and art style unless the instructions below say otherwise. ",
+      "string_b": [
+        "81",
+        0
+      ],
+      "delimiter": ""
+    }
+  },
+  "85": {
+    "class_type": "StringConcatenate",
+    "_meta": {
+      "title": "RGBA prompt with 3 reference(s)"
+    },
+    "inputs": {
+      "string_a": "This is an RGBA image with transparency. Reference image 1 is <image1>, reference image 2 is <image2> and reference image 3 is <image3>. They show the character; keep the same identity, face, hair, eye color, outfit, colors and art style unless the instructions below say otherwise. ",
+      "string_b": [
+        "81",
+        0
+      ],
+      "delimiter": ""
+    }
+  },
+  "86": {
+    "class_type": "StringConcatenate",
+    "_meta": {
+      "title": "RGBA prompt with 4 reference(s)"
+    },
+    "inputs": {
+      "string_a": "This is an RGBA image with transparency. Reference image 1 is <image1>, reference image 2 is <image2>, reference image 3 is <image3> and reference image 4 is <image4>. They show the character; keep the same identity, face, hair, eye color, outfit, colors and art style unless the instructions below say otherwise. ",
+      "string_b": [
+        "81",
+        0
+      ],
+      "delimiter": ""
     }
   }
 }

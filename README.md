@@ -150,5 +150,11 @@ How it works:
   output size, so a larger output is fine.
 - **Sampling:** 25 steps, euler, CFG 1. The negative prompt has no effect at
   CFG 1.
-- **Background:** the Qwen VAE outputs RGBA, so the PNG keeps whatever
-  transparency the model draws.
+- **Transparent background:** the prompt is wrapped in the fixed phrases from
+  the [Qwen-Image 2.1 guide](https://comfyui.nomadoor.net/en/basic-workflows/qwen-image-2-1/#transparent-images):
+  `This is an RGBA image with transparency. <prompt>. The image has alpha
+  channel and the background is transparent.` Marinara's "solid white
+  background" wording is rewritten to "transparent background" first, and the
+  RGBA output is saved as PNG. Leave Marinara's **remove background** option
+  off for this connection: it swaps in a green-screen instruction that
+  contradicts the transparency wrapper.
