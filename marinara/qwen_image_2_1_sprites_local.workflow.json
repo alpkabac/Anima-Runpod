@@ -2,10 +2,10 @@
   "1": {
     "class_type": "UNETLoader",
     "_meta": {
-      "title": "Qwen Image 2.1 model (change to your nvfp4 file if needed)"
+      "title": "Qwen Image 2.1 model"
     },
     "inputs": {
-      "unet_name": "qwen_image_2.1_int8_convrot.safetensors",
+      "unet_name": "qwen_image_2.1_nvfp4.safetensors",
       "weight_dtype": "default"
     }
   },
@@ -23,7 +23,7 @@
   "3": {
     "class_type": "CLIPLoader",
     "inputs": {
-      "clip_name": "qwen3vl_8b_int8_convrot.safetensors",
+      "clip_name": "qwen3vl_8b_nvfp4.safetensors",
       "type": "qwen_image",
       "device": "default"
     }

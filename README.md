@@ -127,8 +127,8 @@ Qwen-Image 2.1 edits from references instead of drawing the character from
 tags, so every sprite keeps the reference's face, outfit and art style.
 
 1. Put the models in ComfyUI (names as in the workflow, or edit the loaders):
-   `diffusion_models/qwen_image_2.1_int8_convrot.safetensors` (or your NVFP4 file),
-   `text_encoders/qwen3vl_8b_int8_convrot.safetensors`,
+   `diffusion_models/qwen_image_2.1_nvfp4.safetensors`,
+   `text_encoders/qwen3vl_8b_nvfp4.safetensors`,
    `vae/qwen_image_2.1_vae_bf16.safetensors`.
 2. In Marinara, add a **ComfyUI** image connection and paste the workflow. It is
    valid JSON, because the local ComfyUI provider parses the workflow before it
@@ -158,3 +158,25 @@ How it works:
   RGBA output is saved as PNG. Leave Marinara's **remove background** option
   off for this connection: it swaps in a green-screen instruction that
   contradicts the transparency wrapper.
+
+### Standalone expression pack (run in ComfyUI)
+
+[`marinara/qwen_image_2_1_expression_pack.json`](marinara/qwen_image_2_1_expression_pack.json)
+edits one character image into SillyTavern's 28 expressions (admiration …
+surprise), one expression per run, as transparent PNGs. It uses core ComfyUI
+nodes only (0.37.0 or newer) and the same three model files.
+
+1. Drag the file into ComfyUI.
+2. **1. Character image:** upload the avatar or a neutral portrait.
+3. **2. Character name:** used as the output folder.
+4. **3. Expression number** starts at 0 and is set to *increment*. Set the run
+   count next to **Run** to 28 and press Run. Each run edits the next
+   expression and wraps around after the last one.
+5. Files land in `ComfyUI/output/<character>/<expression>_00001_.png`. Upload
+   them in Marinara's sprite manager (or rename them to `<expression>.png` for
+   SillyTavern).
+
+The input image is resized to about 1 MP (multiples of 32), and the output
+matches that size. Edit the two lists in the workflow to change the
+expressions or how each one should look. Keep **Number of expressions** equal
+to the list length.
