@@ -115,3 +115,40 @@ When both environment variables are set, the script POSTs to
 `/v2/<endpoint>/run`, polls `/status`, and writes `output.images[0].data` to
 `--save`. Add `--no-send` to only print. Add `--out payload.json` to write the
 full payload to a file.
+
+## Sprites with Qwen-Image 2.1 (local ComfyUI)
+
+[`marinara/qwen_image_2_1_sprites_local.workflow.json`](marinara/qwen_image_2_1_sprites_local.workflow.json)
+is a separate Marinara image connection for the **sprite generator** (expressions
+and full-body sprites) on a **local ComfyUI 0.37.0 or newer**. It is not used on
+RunPod: the RunPod image runs ComfyUI 0.34, which has no Qwen-Image 2.1 nodes.
+
+Qwen-Image 2.1 edits from references instead of drawing the character from
+tags, so every sprite keeps the reference's face, outfit and art style.
+
+1. Put the models in ComfyUI (names as in the workflow, or edit the loaders):
+   `diffusion_models/qwen_image_2.1_int8_convrot.safetensors` (or your NVFP4 file),
+   `text_encoders/qwen3vl_8b_int8_convrot.safetensors`,
+   `vae/qwen_image_2.1_vae_bf16.safetensors`.
+2. In Marinara, add a **ComfyUI** image connection and paste the workflow. It is
+   valid JSON, because the local ComfyUI provider parses the workflow before it
+   fills placeholders.
+3. Turn on **"Upload a 1x1 placeholder when no reference image is provided"**.
+   All four reference slots are always present in the workflow.
+4. Pick that connection in the sprite generator.
+
+How it works:
+
+- **References:** Marinara sends up to four: the avatar (when "use current
+  avatar" is on), uploaded references, and in full-body expression mode the
+  neutral full-body sprite and the matching expression portrait. They reach
+  Qwen as `<image1>`…`<image4>`, in Marinara's order. Placeholder slots
+  (16×16) are detected and left out, and with no real reference it falls back
+  to plain text-to-image.
+- **Size:** the requested size is kept but scaled to between 1 and 4 megapixels
+  (e.g. 512×512 portraits render at 1024×1024). Marinara slices by the real
+  output size, so a larger output is fine.
+- **Sampling:** 25 steps, euler, CFG 1. The negative prompt has no effect at
+  CFG 1.
+- **Background:** the Qwen VAE outputs RGBA, so the PNG keeps whatever
+  transparency the model draws.
